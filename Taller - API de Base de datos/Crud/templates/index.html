@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD de Expedientes</title>
+    <!-- Incluye Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilo personalizado para el ambiente oscuro -->
+    <style>
+        body {
+            background-color: #343a40; /* Color de fondo oscuro */
+            color: #f8f9fa; /* Color de texto claro */
+        }
+        /* Estilo para la tabla */
+        table {
+            color: #f8f9fa; /* Color de texto claro */
+        }
+        /* Cambiar color del enlace en la tabla */
+        table a {
+            color: #17a2b8; /* Color de enlace claro */
+        }
+        /* Cambiar color de los botones */
+        .btn {
+            color: #f8f9fa; /* Color de texto claro */
+            background-color: #007bff; /* Color de fondo azul */
+            border-color: #007bff; /* Color del borde azul */
+        }
+        /* Cambiar color del botón de tipo submit */
+        input[type="submit"].btn-primary {
+            color: #f8f9fa; /* Color de texto claro */
+            background-color: #007bff; /* Color de fondo azul */
+            border-color: #007bff; /* Color del borde azul */
+        }
+        /* Cambiar color del botón de tipo submit al pasar el mouse */
+        input[type="submit"].btn-primary:hover {
+            background-color: #0056b3; /* Color de fondo azul más oscuro */
+            border-color: #0056b3; /* Color del borde azul más oscuro */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Expedientes</h1>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Conductor</th>
+                    <th>Aseguradora</th>
+                    <th>Número de Caso</th>
+                    <th>Tipo de Proceso</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expediente in expedientes %}
+                <tr>
+                    <td>{{ expediente[0] }}</td>
+                    <td>{{ expediente[1] }}</td>
+                    <td>{{ expediente[2] }}</td>
+                    <td>{{ expediente[3] }}</td>
+                    <td>{{ expediente[4] }}</td>
+                    <td>
+                        <form action="/eliminar/{{ expediente[0] }}" method="post">
+                            <input type="submit" value="Eliminar" class="btn btn-danger">
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <form action="/actualizar" method="post">
+                            <input type="hidden" name="expediente_id" value="{{ expediente[0] }}">
+                            <label for="conductor">Conductor:</label>
+                            <input type="text" id="conductor" name="conductor" value="{{ expediente[1] }}"><br>
+                            <label for="aseguradora">Aseguradora:</label>
+                            <input type="text" id="aseguradora" name="aseguradora" value="{{ expediente[2] }}"><br>
+                            <label for="numero_de_caso">Número de Caso:</label>
+                            <input type="text" id="numero_de_caso" name="numero_de_caso" value="{{ expediente[3] }}"><br>
+                            <label for="tipo_de_proceso">Tipo de Proceso:</label>
+                            <input type="text" id="tipo_de_proceso" name="tipo_de_proceso" value="{{ expediente[4] }}"><br>
+                            <input type="submit" value="Actualizar" class="btn btn-primary">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2 class="mt-4">Crear Nuevo Expediente</h2>
+        <form action="/crear" method="post">
+            <div class="form-group">
+                <label for="conductor">Conductor:</label>
+                <input type="text" id="conductor" name="conductor" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="aseguradora">Aseguradora:</label>
+                <input type="text" id="aseguradora" name="aseguradora" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="numero_de_caso">Número de Caso:</label>
+                <input type="text" id="numero_de_caso" name="numero_de_caso" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="tipo_de_proceso">Tipo de Proceso:</label>
+                <input type="text" id="tipo_de_proceso" name="tipo_de_proceso" class="form-control">
+            </div>
+            <input type="submit" value="Crear" class="btn btn-primary">
+        </form>
+    </div>
+
+    <!-- Incluye Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
