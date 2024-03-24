@@ -158,12 +158,11 @@ def obtener_fidelizaciones_usuario(user_name):
 # CREATE - Crear una nueva actividad para un usuario específico
 @app.route('/usuarios/<string:user_name>/actividades', methods=['POST'])
 def crear_actividad_usuario(user_name):
-    # Aquí obtienes los datos de la actividad del cuerpo de la solicitud
     datos_actividad = request.json
     nombre = datos_actividad['nombre']
     fecha = datos_actividad['fecha']
 
-    # Primero, busca el usuario por su user_name para obtener su id
+    # Busca el usuario por su user_name para obtener su id
     cur = mysql.connection.cursor()
     cur.execute("SELECT id FROM Usuario WHERE user_name = %s", (user_name,))
     usuario_id = cur.fetchone()
@@ -178,7 +177,7 @@ def crear_actividad_usuario(user_name):
 
         # Asocia la actividad recién creada con el usuario
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO Fidelizacion (usuario_id, actividad_id) VALUES (%s, %s)", (usuario_id[0], actividad_id))
+        cur.execute("INSERT INTO usuario_actividad (usuario_id, actividad_id) VALUES (%s, %s)", (usuario_id[0], actividad_id))
         mysql.connection.commit()
         cur.close()
 
@@ -189,16 +188,16 @@ def crear_actividad_usuario(user_name):
 # DELETE - Eliminar una actividad de un usuario específico
 @app.route('/usuarios/<string:user_name>/actividades/<uuid:id>', methods=['DELETE'])
 def eliminar_actividad_usuario(user_name, id):
-    # Primero, verifica si el usuario existe
+    # Verifica si el usuario existe
     cur = mysql.connection.cursor()
     cur.execute("SELECT id FROM Usuario WHERE user_name = %s", (user_name,))
     usuario_id = cur.fetchone()
     cur.close()
 
     if usuario_id:
-        # Si el usuario existe, elimina la actividad asociada a ese usuario
+        # Si el usuario existe, elimina la relación entre usuario y actividad
         cur = mysql.connection.cursor()
-        cur.execute("DELETE FROM Fidelizacion WHERE usuario_id = %s AND actividad_id = UUID_TO_BIN(%s)", (usuario_id[0], id))
+        cur.execute("DELETE FROM usuario_actividad WHERE usuario_id = %s AND actividad_id = UUID_TO_BIN(%s)", (usuario_id[0], id))
         mysql.connection.commit()
 
         if cur.rowcount > 0:
