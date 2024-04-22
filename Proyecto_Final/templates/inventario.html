@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario - Farmacia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="dark-theme">
+    <nav>
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/inventario">Inventario</a></li>
+            <li><a href="/reportes">Reportes</a></li>
+            <li><a href="/empleados">Empleados</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Inventario de Medicamentos</h1>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Cantidad Disponible</th>
+            </tr>
+            {% for medicamento in medicamentos %}
+            <tr>
+                <td>{{ medicamento.nombre }}</td>
+                <td>{{ medicamento.descripcion }}</td>
+                <td>{{ medicamento.precio }}</td>
+                <td>{{ medicamento.cantidad_disponible }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

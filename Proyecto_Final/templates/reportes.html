@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - Farmacia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="dark-theme">
+    <nav>
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/inventario">Inventario</a></li>
+            <li><a href="/reportes">Reportes</a></li>
+            <li><a href="/empleados">Empleados</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Reportes de Ventas</h1>
+        <ul>
+            {% for venta in ventas %}
+            <li>{{ venta.fecha }}</li>
+            <!-- Puedes mostrar más detalles de la venta si es necesario -->
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
