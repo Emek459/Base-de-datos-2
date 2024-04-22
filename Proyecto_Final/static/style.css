@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.dark-theme {
+    background-color: #111; /* Fondo oscuro */
+    color: #fff; /* Texto blanco */
+}
+
+.header {
+    text-align: center;
+    padding: 50px;
+}
+
+.header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 18px;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    padding: 10px;
+    background-color: #333; /* Color de fondo oscuro */
+}
+
+nav {
+    text-align: center;
+    margin-top: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+nav ul li a:hover {
+    color: #ccc; /* Cambia el color del enlace al pasar el ratón */
+}
