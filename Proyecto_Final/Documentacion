@@ -1,0 +1,40 @@
+Farmacia Web App
+Esta aplicación web permite gestionar una farmacia, incluyendo la gestión de inventario, ventas, empleados y roles de usuario.
+
+Configuración
+La aplicación utiliza una base de datos MySQL alojada en Amazon RDS. La configuración de la base de datos se realiza en el archivo de configuración de la aplicación:
+
+"""
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://admin:Bd2_123456789@pharmatech.c1084u60ifuv.us-east-1.rds.amazonaws.com/farmacia'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Desactiva el seguimiento de modificaciones
+app.secret_key = 'pepito1334'
+"""
+Modelos de Datos
+La aplicación utiliza los siguientes modelos de datos:
+
+Medicamento: Representa un medicamento en el inventario de la farmacia.
+Empleado: Representa a un empleado de la farmacia.
+Venta: Representa una venta realizada por un empleado en una fecha específica.
+DetalleVenta: Representa los detalles de una venta, incluyendo el medicamento vendido y la cantidad.
+Autenticación de Usuarios
+La aplicación utiliza Flask-Login para la autenticación de usuarios. Los usuarios se autentican utilizando un formulario de inicio de sesión. La autenticación se realiza comparando las credenciales proporcionadas por el usuario con los registros de la base de datos.
+
+Rutas Principales
+/: Ruta de inicio de sesión. Muestra un formulario de inicio de sesión para que los usuarios ingresen sus credenciales.
+/home: Ruta de la página principal. Una vez autenticado, los usuarios son redirigidos a esta página.
+/inventario: Ruta para la gestión del inventario de medicamentos. Permite agregar, editar y eliminar medicamentos del inventario.
+/eliminar_medicamento/<medicamento_id>: Ruta para eliminar un medicamento específico del inventario.
+/editar_medicamento/<medicamento_id>: Ruta para editar un medicamento específico del inventario.
+/reportes: Ruta para generar reportes de ventas. Muestra las ventas realizadas en el día actual, incluyendo detalles como el empleado que realizó la venta y los medicamentos vendidos.
+/empleados: Ruta para la gestión de empleados. Permite agregar, editar y eliminar empleados de la farmacia.
+/admin: Ruta para la administración de usuarios. Solo accesible para usuarios con rol de administrador.
+Roles de Usuario
+La aplicación maneja roles de usuario para controlar el acceso a ciertas funciones. Se define un rol de administrador que tiene acceso completo a todas las funcionalidades de la aplicación.
+
+Consideraciones de Seguridad
+Las contraseñas de los usuarios se almacenan en la base de datos como texto plano. Se recomienda implementar el hash de contraseñas para mejorar la seguridad de las credenciales de los usuarios.
+Se debe tener cuidado al manejar las consultas de base de datos para evitar ataques de inyección de SQL.
+Uso de la Aplicación
+Inicie sesión utilizando sus credenciales.
+Navegue por las diferentes secciones de la aplicación para gestionar el inventario, generar reportes, administrar empleados y usuarios, según corresponda.
+Si tiene privilegios de administrador, acceda a la sección de administración para gestionar usuarios.
