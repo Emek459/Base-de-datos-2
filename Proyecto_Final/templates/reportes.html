@@ -1,28 +1,37 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reportes - Farmacia</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body class="dark-theme">
-    <nav>
-        <ul>
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/inventario">Inventario</a></li>
-            <li><a href="/reportes">Reportes</a></li>
-            <li><a href="/empleados">Empleados</a></li>
-        </ul>
-    </nav>
-    <div class="container">
-        <h1>Reportes de Ventas</h1>
-        <ul>
-            {% for venta in ventas %}
-            <li>{{ venta.fecha }}</li>
-            <!-- Puedes mostrar más detalles de la venta si es necesario -->
-            {% endfor %}
-        </ul>
-    </div>
-</body>
-</html>
+<!-- reporte_ventas_hoy.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Reporte de Ventas</h2>
+    {% if detalles_ventas %}
+        {% for detalle_venta in detalles_ventas %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    Venta realizada por: {{ detalle_venta['empleado'] }} - Fecha: {{ detalle_venta['fecha'] }}
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Medicamento</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio Unitario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for detalle in detalle_venta['detalles'] %}
+                                <tr>
+                                    <td>{{ detalle['medicamento'] }}</td>
+                                    <td>{{ detalle['cantidad'] }}</td>
+                                    <td>{{ detalle['precio_unitario'] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
+
