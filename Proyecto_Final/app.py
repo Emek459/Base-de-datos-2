@@ -100,12 +100,16 @@ def reportes():
     for venta in ventas_hoy:
         detalles_venta = {
             'fecha': venta.fecha,
-            'empleado': venta.empleado.nombre + ' ' + venta.empleado.apellido,
+            'empleado': Empleado.query.get(venta.id_empleado).nombre,
             'detalles': []
         }
-        for detalle in venta.detalle_venta:
+        # Obtener los detalles de la venta actual
+        detalles_venta_db = DetalleVenta.query.filter_by(id_venta=venta.id).all()
+        for detalle in detalles_venta_db:
+            # Obtener el nombre del medicamento a partir de su ID
+            nombre_medicamento = Medicamento.query.get(detalle.id_medicamento).nombre
             detalles_venta['detalles'].append({
-                'medicamento': detalle.medicamento.nombre,
+                'medicamento': nombre_medicamento,
                 'cantidad': detalle.cantidad,
                 'precio_unitario': detalle.precio_unitario
             })
